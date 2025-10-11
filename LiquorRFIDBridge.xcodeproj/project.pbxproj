@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		15564B022E9AE529004A90FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15564AEC2E9AE528004A90FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 15564AF32E9AE528004A90FC;
+			remoteInfo = LiquorRFIDBridge;
+		};
+		15564B0C2E9AE529004A90FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15564AEC2E9AE528004A90FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 15564AF32E9AE528004A90FC;
+			remoteInfo = LiquorRFIDBridge;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		15564AF42E9AE528004A90FC /* LiquorRFIDBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiquorRFIDBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		15564B012E9AE529004A90FC /* LiquorRFIDBridgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiquorRFIDBridgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		15564B0B2E9AE529004A90FC /* LiquorRFIDBridgeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiquorRFIDBridgeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		15564AF62E9AE528004A90FC /* LiquorRFIDBridge */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LiquorRFIDBridge;
+			sourceTree = "<group>";
+		};
+		15564B042E9AE529004A90FC /* LiquorRFIDBridgeTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LiquorRFIDBridgeTests;
+			sourceTree = "<group>";
+		};
+		15564B0E2E9AE529004A90FC /* LiquorRFIDBridgeUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LiquorRFIDBridgeUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		15564AF12E9AE528004A90FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15564AFE2E9AE529004A90FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15564B082E9AE529004A90FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		15564AEB2E9AE528004A90FC = {
+			isa = PBXGroup;
+			children = (
+				15564AF62E9AE528004A90FC /* LiquorRFIDBridge */,
+				15564B042E9AE529004A90FC /* LiquorRFIDBridgeTests */,
+				15564B0E2E9AE529004A90FC /* LiquorRFIDBridgeUITests */,
+				15564AF52E9AE528004A90FC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		15564AF52E9AE528004A90FC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				15564AF42E9AE528004A90FC /* LiquorRFIDBridge.app */,
+				15564B012E9AE529004A90FC /* LiquorRFIDBridgeTests.xctest */,
+				15564B0B2E9AE529004A90FC /* LiquorRFIDBridgeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		15564AF32E9AE528004A90FC /* LiquorRFIDBridge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15564B152E9AE529004A90FC /* Build configuration list for PBXNativeTarget "LiquorRFIDBridge" */;
+			buildPhases = (
+				15564AF02E9AE528004A90FC /* Sources */,
+				15564AF12E9AE528004A90FC /* Frameworks */,
+				15564AF22E9AE528004A90FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				15564AF62E9AE528004A90FC /* LiquorRFIDBridge */,
+			);
+			name = LiquorRFIDBridge;
+			packageProductDependencies = (
+			);
+			productName = LiquorRFIDBridge;
+			productReference = 15564AF42E9AE528004A90FC /* LiquorRFIDBridge.app */;
+			productType = "com.apple.product-type.application";
+		};
+		15564B002E9AE529004A90FC /* LiquorRFIDBridgeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15564B182E9AE529004A90FC /* Build configuration list for PBXNativeTarget "LiquorRFIDBridgeTests" */;
+			buildPhases = (
+				15564AFD2E9AE529004A90FC /* Sources */,
+				15564AFE2E9AE529004A90FC /* Frameworks */,
+				15564AFF2E9AE529004A90FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				15564B032E9AE529004A90FC /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				15564B042E9AE529004A90FC /* LiquorRFIDBridgeTests */,
+			);
+			name = LiquorRFIDBridgeTests;
+			packageProductDependencies = (
+			);
+			productName = LiquorRFIDBridgeTests;
+			productReference = 15564B012E9AE529004A90FC /* LiquorRFIDBridgeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		15564B0A2E9AE529004A90FC /* LiquorRFIDBridgeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15564B1B2E9AE529004A90FC /* Build configuration list for PBXNativeTarget "LiquorRFIDBridgeUITests" */;
+			buildPhases = (
+				15564B072E9AE529004A90FC /* Sources */,
+				15564B082E9AE529004A90FC /* Frameworks */,
+				15564B092E9AE529004A90FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				15564B0D2E9AE529004A90FC /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				15564B0E2E9AE529004A90FC /* LiquorRFIDBridgeUITests */,
+			);
+			name = LiquorRFIDBridgeUITests;
+			packageProductDependencies = (
+			);
+			productName = LiquorRFIDBridgeUITests;
+			productReference = 15564B0B2E9AE529004A90FC /* LiquorRFIDBridgeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		15564AEC2E9AE528004A90FC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					15564AF32E9AE528004A90FC = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					15564B002E9AE529004A90FC = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 15564AF32E9AE528004A90FC;
+					};
+					15564B0A2E9AE529004A90FC = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 15564AF32E9AE528004A90FC;
+					};
+				};
+			};
+			buildConfigurationList = 15564AEF2E9AE528004A90FC /* Build configuration list for PBXProject "LiquorRFIDBridge" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 15564AEB2E9AE528004A90FC;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 15564AF52E9AE528004A90FC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				15564AF32E9AE528004A90FC /* LiquorRFIDBridge */,
+				15564B002E9AE529004A90FC /* LiquorRFIDBridgeTests */,
+				15564B0A2E9AE529004A90FC /* LiquorRFIDBridgeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		15564AF22E9AE528004A90FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15564AFF2E9AE529004A90FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15564B092E9AE529004A90FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		15564AF02E9AE528004A90FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15564AFD2E9AE529004A90FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15564B072E9AE529004A90FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		15564B032E9AE529004A90FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 15564AF32E9AE528004A90FC /* LiquorRFIDBridge */;
+			targetProxy = 15564B022E9AE529004A90FC /* PBXContainerItemProxy */;
+		};
+		15564B0D2E9AE529004A90FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 15564AF32E9AE528004A90FC /* LiquorRFIDBridge */;
+			targetProxy = 15564B0C2E9AE529004A90FC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		15564B132E9AE529004A90FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		15564B142E9AE529004A90FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		15564B162E9AE529004A90FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.8ball.LiquorRFIDBridge;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		15564B172E9AE529004A90FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.8ball.LiquorRFIDBridge;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		15564B192E9AE529004A90FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.8ball.LiquorRFIDBridgeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiquorRFIDBridge.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LiquorRFIDBridge";
+			};
+			name = Debug;
+		};
+		15564B1A2E9AE529004A90FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.8ball.LiquorRFIDBridgeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LiquorRFIDBridge.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LiquorRFIDBridge";
+			};
+			name = Release;
+		};
+		15564B1C2E9AE529004A90FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.8ball.LiquorRFIDBridgeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LiquorRFIDBridge;
+			};
+			name = Debug;
+		};
+		15564B1D2E9AE529004A90FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.8ball.LiquorRFIDBridgeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LiquorRFIDBridge;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		15564AEF2E9AE528004A90FC /* Build configuration list for PBXProject "LiquorRFIDBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15564B132E9AE529004A90FC /* Debug */,
+				15564B142E9AE529004A90FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15564B152E9AE529004A90FC /* Build configuration list for PBXNativeTarget "LiquorRFIDBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15564B162E9AE529004A90FC /* Debug */,
+				15564B172E9AE529004A90FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15564B182E9AE529004A90FC /* Build configuration list for PBXNativeTarget "LiquorRFIDBridgeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15564B192E9AE529004A90FC /* Debug */,
+				15564B1A2E9AE529004A90FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15564B1B2E9AE529004A90FC /* Build configuration list for PBXNativeTarget "LiquorRFIDBridgeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15564B1C2E9AE529004A90FC /* Debug */,
+				15564B1D2E9AE529004A90FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 15564AEC2E9AE528004A90FC /* Project object */;
+}
