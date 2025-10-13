@@ -6,6 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		15564B252E9AE5FA004A90FC /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 15564B242E9AE5FA004A90FC /* PostgREST */; };
+		15564B272E9AE5FA004A90FC /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 15564B262E9AE5FA004A90FC /* Realtime */; };
+		15564B352E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */; platformFilter = ios; };
+		15564B362E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */; platformFilter = ios; };
+		15564B582E9CB029004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */; };
+		15564B592E9CB029004A90FC /* ZebraRfidSdkFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		15564B022E9AE529004A90FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,15 +32,43 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		15564B222E9AE5B0004A90FC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				15564B592E9CB029004A90FC /* ZebraRfidSdkFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		15564AF42E9AE528004A90FC /* LiquorRFIDBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiquorRFIDBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15564B012E9AE529004A90FC /* LiquorRFIDBridgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiquorRFIDBridgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15564B0B2E9AE529004A90FC /* LiquorRFIDBridgeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiquorRFIDBridgeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZebraRfidSdkFramework.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		15564B5B2E9D5401004A90FC /* Exceptions for "LiquorRFIDBridge" folder in "LiquorRFIDBridge" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 15564AF32E9AE528004A90FC /* LiquorRFIDBridge */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		15564AF62E9AE528004A90FC /* LiquorRFIDBridge */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				15564B5B2E9D5401004A90FC /* Exceptions for "LiquorRFIDBridge" folder in "LiquorRFIDBridge" target */,
+			);
 			path = LiquorRFIDBridge;
 			sourceTree = "<group>";
 		};
@@ -52,6 +89,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15564B272E9AE5FA004A90FC /* Realtime in Frameworks */,
+				15564B582E9CB029004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */,
+				15564B252E9AE5FA004A90FC /* PostgREST in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15564B352E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15564B362E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +120,7 @@
 				15564AF62E9AE528004A90FC /* LiquorRFIDBridge */,
 				15564B042E9AE529004A90FC /* LiquorRFIDBridgeTests */,
 				15564B0E2E9AE529004A90FC /* LiquorRFIDBridgeUITests */,
+				15564B1E2E9AE5B0004A90FC /* Frameworks */,
 				15564AF52E9AE528004A90FC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +135,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		15564B1E2E9AE5B0004A90FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,6 +153,7 @@
 				15564AF02E9AE528004A90FC /* Sources */,
 				15564AF12E9AE528004A90FC /* Frameworks */,
 				15564AF22E9AE528004A90FC /* Resources */,
+				15564B222E9AE5B0004A90FC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -112,6 +164,8 @@
 			);
 			name = LiquorRFIDBridge;
 			packageProductDependencies = (
+				15564B242E9AE5FA004A90FC /* PostgREST */,
+				15564B262E9AE5FA004A90FC /* Realtime */,
 			);
 			productName = LiquorRFIDBridge;
 			productReference = 15564AF42E9AE528004A90FC /* LiquorRFIDBridge.app */;
@@ -195,6 +249,9 @@
 			);
 			mainGroup = 15564AEB2E9AE528004A90FC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				15564B232E9AE5FA004A90FC /* XCRemoteSwiftPackageReference "supabase-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 15564AF52E9AE528004A90FC /* Products */;
 			projectDirPath = "";
@@ -399,12 +456,20 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z57J3PXJB3;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiquorRFIDBridge/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "8Ball RFID Bridge needs Bluetooth to connect to the Zebra RFD40 RFID reader for inventory scanning.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "8Ball RFID Bridge needs Bluetooth to connect to the Zebra RFD40 RFID reader for inventory scanning.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -412,9 +477,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.8ball.LiquorRFIDBridge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -427,12 +496,20 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z57J3PXJB3;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LiquorRFIDBridge/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "8Ball RFID Bridge needs Bluetooth to connect to the Zebra RFD40 RFID reader for inventory scanning.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "8Ball RFID Bridge needs Bluetooth to connect to the Zebra RFD40 RFID reader for inventory scanning.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,9 +517,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.8ball.LiquorRFIDBridge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -453,6 +534,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MARKETING_VERSION = 1.0;
@@ -472,6 +557,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MARKETING_VERSION = 1.0;
@@ -490,6 +579,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.8ball.LiquorRFIDBridgeUITests;
@@ -507,6 +600,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z57J3PXJB3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.8ball.LiquorRFIDBridgeUITests;
@@ -558,6 +655,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		15564B232E9AE5FA004A90FC /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		15564B242E9AE5FA004A90FC /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15564B232E9AE5FA004A90FC /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		15564B262E9AE5FA004A90FC /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 15564B232E9AE5FA004A90FC /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 15564AEC2E9AE528004A90FC /* Project object */;
 }
