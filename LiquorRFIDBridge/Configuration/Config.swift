@@ -20,8 +20,11 @@ struct AppConfig {
     /// Anonymous key for public API access
     static let supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJrY3p2ZWN1c2FmbWVid2dzbXJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI5NTY2MDMsImV4cCI6MjA2ODUzMjYwM30.PxVT9RAVH14B9MCmmpXaEzYeUOUqP04AA_LvAATCHcQ"
     
-    /// Service role key for privileged operations (private for security)
-    private static let supabaseServiceKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJrY3p2ZWN1c2FmbWVid2dzbXJiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1Mjk1NjYwMywiZXhwIjoyMDY4NTMyNjAzfQ.o9Fzb8nbFDI6HiKIXJ6OnhbJ0XyQ7FOwNTn52skJ7hQ"
+    /// Functions base URL derived from project ref
+    static var functionsBaseURL: String {
+        // Transform "https://<ref>.supabase.co" -> "https://<ref>.functions.supabase.co"
+        supabaseURL.replacingOccurrences(of: ".supabase.co", with: ".functions.supabase.co")
+    }
     
     /// App version from Info.plist
        static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
@@ -64,18 +67,20 @@ struct AppConfig {
     /// Whether to auto-generate session names with timestamp
     static let sessionAutoGenerateName: Bool = true
     
+    /// Count each EPC only once per active session (app-side de-dup)
+    static let countUniquePerSession: Bool = true
+    
+    /// Optional minimum RSSI threshold to accept a read (e.g., -60)
+    /// Set to nil to disable RSSI filtering
+    static let minAcceptedRSSI: Int? = nil
+    
     // MARK: - Computed Properties
     
-    /// Full REST endpoint for scan_sessions table
-    static var scanSessionsEndpoint: String {
-        "\(supabaseURL)/rest/v1/scan_sessions"
-    }
-    
-    /// Full REST endpoint for rfid_scans table
-    static var rfidScansEndpoint: String {
-        "\(supabaseURL)/rest/v1/rfid_scans"
-    }
-    
+    /// Edge Function endpoints
+    static var fnCreateSession: String { "\(functionsBaseURL)/create_session" }
+    static var fnBatchInsertScans: String { "\(functionsBaseURL)/batch_insert_scans" }
+    static var fnCompleteSession: String { "\(functionsBaseURL)/complete_session" }
+
     /// Full REST endpoint for locations table
     static var locationsEndpoint: String {
         "\(supabaseURL)/rest/v1/locations"
@@ -84,8 +89,8 @@ struct AppConfig {
     /// Standard HTTP headers for Supabase API requests
     static var supabaseHeaders: [String: String] {
         [
-            "apikey": supabaseServiceKey,
-            "Authorization": "Bearer \(supabaseServiceKey)",
+            "apikey": supabaseAnonKey,
+            "Authorization": "Bearer \(supabaseAnonKey)",
             "Content-Type": "application/json",
             "Prefer": "return=minimal"
         ]

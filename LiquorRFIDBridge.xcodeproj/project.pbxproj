@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		15564B252E9AE5FA004A90FC /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 15564B242E9AE5FA004A90FC /* PostgREST */; };
 		15564B272E9AE5FA004A90FC /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 15564B262E9AE5FA004A90FC /* Realtime */; };
-		15564B352E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */; platformFilter = ios; };
-		15564B362E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */; platformFilter = ios; };
-		15564B582E9CB029004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */; };
-		15564B592E9CB029004A90FC /* ZebraRfidSdkFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		15564B5D2EA1EE25004A90FC /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15564B5C2EA1EE25004A90FC /* ExternalAccessory.framework */; };
+		15564B5F2EA1EE30004A90FC /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15564B5E2EA1EE30004A90FC /* CoreBluetooth.framework */; };
+		15A25F2E2EB6B0E9001E7D4A /* ZebraRfidSdkFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15564BBB2EA2ECA8004A90FC /* ZebraRfidSdkFramework.xcframework */; };
+		15A25F2F2EB6B0E9001E7D4A /* ZebraRfidSdkFramework.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 15564BBB2EA2ECA8004A90FC /* ZebraRfidSdkFramework.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,13 +33,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		15564B222E9AE5B0004A90FC /* Embed Frameworks */ = {
+		15A25F302EB6B0E9001E7D4A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				15564B592E9CB029004A90FC /* ZebraRfidSdkFramework.framework in Embed Frameworks */,
+				15A25F2F2EB6B0E9001E7D4A /* ZebraRfidSdkFramework.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -50,7 +50,10 @@
 		15564AF42E9AE528004A90FC /* LiquorRFIDBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiquorRFIDBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15564B012E9AE529004A90FC /* LiquorRFIDBridgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiquorRFIDBridgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15564B0B2E9AE529004A90FC /* LiquorRFIDBridgeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiquorRFIDBridgeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZebraRfidSdkFramework.framework; sourceTree = "<group>"; };
+		15564B5C2EA1EE25004A90FC /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		15564B5E2EA1EE30004A90FC /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		15564B602EA1EF94004A90FC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		15564BBB2EA2ECA8004A90FC /* ZebraRfidSdkFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = ZebraRfidSdkFramework.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -89,8 +92,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15A25F2E2EB6B0E9001E7D4A /* ZebraRfidSdkFramework.xcframework in Frameworks */,
+				15564B5F2EA1EE30004A90FC /* CoreBluetooth.framework in Frameworks */,
+				15564B5D2EA1EE25004A90FC /* ExternalAccessory.framework in Frameworks */,
 				15564B272E9AE5FA004A90FC /* Realtime in Frameworks */,
-				15564B582E9CB029004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */,
 				15564B252E9AE5FA004A90FC /* PostgREST in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,7 +104,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15564B352E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +111,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15564B362E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +141,10 @@
 		15564B1E2E9AE5B0004A90FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				15564B332E9AE9FF004A90FC /* ZebraRfidSdkFramework.framework */,
+				15564BBB2EA2ECA8004A90FC /* ZebraRfidSdkFramework.xcframework */,
+				15564B602EA1EF94004A90FC /* libz.tbd */,
+				15564B5E2EA1EE30004A90FC /* CoreBluetooth.framework */,
+				15564B5C2EA1EE25004A90FC /* ExternalAccessory.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -153,7 +159,7 @@
 				15564AF02E9AE528004A90FC /* Sources */,
 				15564AF12E9AE528004A90FC /* Frameworks */,
 				15564AF22E9AE528004A90FC /* Resources */,
-				15564B222E9AE5B0004A90FC /* Embed Frameworks */,
+				15A25F302EB6B0E9001E7D4A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

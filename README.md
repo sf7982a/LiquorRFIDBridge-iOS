@@ -6,6 +6,25 @@ An iOS companion app for the 8Ball Inventory System that enables RFID scanning c
 
 LiquorRFIDBridge is a native iOS application that bridges the gap between Zebra RFID handheld scanners and the 8Ball Inventory web application. It enables real-time inventory tracking by scanning RFID tags and syncing data directly to Supabase, making inventory counts accessible instantly in the web interface.
 
+## Business Goals (One‑pager)
+
+- Enable fast, accurate liquor inventory using RFID.
+- Input inventory once (on arrival) without duplicates.
+- Perform daily inventory audits per location without inflating stock.
+- Provide a simple iOS app for scanning and a web app for viewing counts, variances, and movement history.
+
+## Technical Architecture (Current)
+
+- Hardware: Zebra RFD40 Premium Plus via MFi/iAP2 (trigger‑driven scanning supported).
+- Mobile: SwiftUI app with Zebra iOS SDK; unique‑tag reporting + app de‑dup; optional RSSI floor.
+- Transport: ASCII connection established; operational mode MFi; interface events logged (Bluetooth/USB).
+- Backend: Supabase (Postgres + Edge Functions). App uses anon key; writes go through Functions with service role on server.
+- Functions (deployed):
+  - `create_session`: idempotent upsert of scan session
+  - `batch_insert_scans`: idempotent batched tag inserts
+  - `complete_session`: update session on stop/complete
+- RLS: reads scoped via `get_user_organization_id()` / `get_user_role()`; Edge Functions perform writes.
+
 ### Key Features
 
 - **RFID Scanning** - Connect to Zebra RFD40 series RFID readers via Bluetooth
@@ -131,7 +150,7 @@ ZebraRfidSdkFramework.framework/  # Zebra RFID SDK (vendored)
 
 ## Database Schema
 
-The app interacts with three main Supabase tables:
+The app currently interacts with these Supabase tables:
 
 ### `scan_sessions`
 - Tracks individual scanning sessions
@@ -146,6 +165,21 @@ The app interacts with three main Supabase tables:
 ### `locations`
 - Inventory locations within organization
 - Hierarchical structure (facility → zone → shelf)
+
+### Proposed (Phase 4+)
+
+- `bottles` (one per EPC)
+  - id uuid (pk), organization_id uuid, rfid_tag text unique, product_id, current_location_id uuid, status (in_stock/sold/lost), first_seen_at, last_seen_at
+- `inventory_movements`
+  - input/output/transfer ledger; lines referencing bottle_id; authoritative stock changes
+- `inventory_counts`
+  - bottle_id uuid, location_id uuid, counted_at date, session_id uuid, rssi, metadata
+  - unique (bottle_id, counted_at, location_id) to avoid double‑counting across days
+
+Counting semantics:
+- Input sessions: upsert bottles (net new only) + create movement lines; no duplicate inputs.
+- Inventory sessions: record daily counts (no stock change), one row per bottle/location/day.
+- Output/transfer: write movement lines and update bottle status/location.
 
 ## Configuration Options
 
@@ -196,9 +230,35 @@ Key settings in `Config.swift`:
 
 ## Security Notes
 
-- Keep `supabaseServiceKey` secure and never commit to public repos
-- Use environment variables or secure storage for production
-- Review Supabase Row Level Security (RLS) policies
+- App uses Supabase anon key; writes are done via Edge Functions with the service role server‑side
+- Do not ship service role keys in the app
+- Review and test RLS policies regularly
+
+## Roadmap & Phases
+
+- Phase 0 — Stabilize reads (DONE)
+  - Trigger‑driven vs continuous; unique‑tag reporting; app de‑dup; RSSI floor toggle
+  - UI status, battery, interface type; Settings toggles
+- Phase 1 — Secure Supabase integration (DONE)
+  - App uses anon key; Edge Functions for writes (idempotent); indexes/RLS verified
+- Phase 2 — Offline‑first & batching (NEXT)
+  - Disk‑backed queue (SQLite/Core Data), batch sizes (100–500), backoff+jitter, telemetry (queue depth/flush)
+- Phase 3 — Locations & session UX
+  - Location picker + default; require location on session start; web views by location/session
+- Phase 4 — Inventory domain modeling
+  - bottles, inventory_movements, inventory_counts (unique per bottle/day/location)
+- Phase 5 — Bulk input workflow
+  - Target quantity flow; commit as one movement; upsert bottles for new EPCs
+- Phase 6 — Web dashboards & realtime
+  - Stock by location, discrepancies, exports; optional live session monitor
+- Phase 7 — Observability & performance
+  - OSLog categories, metrics, reader power/profile tuning, background/foreground handling
+- Phase 8 — Testing, CI/CD, rollout
+  - Protocol mocks, unit/integration tests, TestFlight, feature flags/rollback
+
+## How to Use This Document in a New Chat
+
+Paste the “Business Goals”, “Technical Architecture”, “Database Schema (Proposed)”, and “Roadmap & Phases” sections to bootstrap context. Then specify which phase to continue with (e.g., “Proceed with Phase 2 persistent offline queue”).
 
 ## License
 
