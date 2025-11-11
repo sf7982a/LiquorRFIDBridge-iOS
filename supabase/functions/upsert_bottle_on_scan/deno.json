@@ -1,0 +1,11 @@
+{
+  "lock": false,
+  "exports": "./index.ts",
+  "tasks": {
+    "start": "deno run -A --watch=static/,routes/ dev.ts"
+  },
+  "compilerOptions": {
+    "strict": true
+  }
+}
+

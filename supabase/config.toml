@@ -380,3 +380,15 @@ entrypoint = "./functions/complete_session/index.ts"
 # Specifies static files to be bundled with the function. Supports glob patterns.
 # For example, if you want to serve static HTML pages in your function:
 # static_files = [ "./functions/complete_session/*.html" ]
+
+[functions.upsert_bottle_on_scan]
+enabled = true
+verify_jwt = true
+import_map = "./functions/upsert_bottle_on_scan/deno.json"
+entrypoint = "./functions/upsert_bottle_on_scan/index.ts"
+
+[functions."scan-upsert"]
+enabled = true
+verify_jwt = true
+import_map = "./functions/upsert_bottle_on_scan/deno.json"
+entrypoint = "./functions/upsert_bottle_on_scan/index.ts"

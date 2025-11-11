@@ -1,0 +1,9 @@
+{
+  "lock": false,
+  "exports": "./index.ts",
+  "compilerOptions": {
+    "strict": true
+  }
+}
+
+

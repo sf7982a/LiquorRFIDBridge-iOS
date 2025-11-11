@@ -117,22 +117,47 @@ class SupabaseService: ObservableObject {
     private func batchInsertViaFunction(_ tags: [RFIDTag]) async throws {
         guard networkMonitor?.isConnected ?? false else { throw SupabaseError.offline }
         guard let anyTag = tags.first else { return }
-        let url = URL(string: AppConfig.fnBatchInsertScans)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        for (key, value) in AppConfig.supabaseHeaders { request.setValue(value, forHTTPHeaderField: key) }
-        let scans = tags.map { $0.toDictionary() }
-        let body: [String: Any] = [
-            "organization_id": anyTag.organizationId,
-            "session_id": anyTag.sessionId?.uuidString as Any,
-            "scans": scans
-        ]
-        request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
-        let (data, response) = try await session.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse else { throw SupabaseError.invalidResponse }
-        guard (200...299).contains(httpResponse.statusCode) else {
-            if let s = String(data: data, encoding: .utf8) { print("Batch insert error: \(s)") }
-            throw SupabaseError.httpError(httpResponse.statusCode)
+        // 1) Always write raw scans for audit
+        do {
+            let url = URL(string: AppConfig.fnBatchInsertScans)!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            for (key, value) in AppConfig.supabaseHeaders { request.setValue(value, forHTTPHeaderField: key) }
+            let scans = tags.map { $0.toDictionary() }
+            let body: [String: Any] = [
+                "organization_id": anyTag.organizationId,
+                "session_id": anyTag.sessionId?.uuidString as Any,
+                "scans": scans
+            ]
+            request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+            let (data, response) = try await session.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse else { throw SupabaseError.invalidResponse }
+            guard (200...299).contains(httpResponse.statusCode) else {
+                if let s = String(data: data, encoding: .utf8) { print("Batch insert error: \(s)") }
+                throw SupabaseError.httpError(httpResponse.statusCode)
+            }
+        } catch {
+            // Surface the raw scans failure
+            throw error
+        }
+        
+        // 2) Upsert bottles and (when inventory) write daily counts
+        // Require a location_id to be present (inventory sessions enforce this)
+        if let loc = anyTag.locationId {
+            var req = URLRequest(url: URL(string: AppConfig.fnScanUpsert)!)
+            req.httpMethod = "POST"
+            for (key, value) in AppConfig.supabaseHeaders { req.setValue(value, forHTTPHeaderField: key) }
+            let tagsSlim = tags.map { ["rfid_tag": $0.rfidTag, "rssi": $0.rssi, "timestamp": ISO8601DateFormatter().string(from: $0.timestamp)] }
+            let body: [String: Any] = [
+                "organization_id": anyTag.organizationId,
+                "session_id": anyTag.sessionId?.uuidString as Any,
+                "location_id": loc,
+                // Optional: "session_type" can be omitted; RPC resolves from session_id
+                "tags": tagsSlim
+            ]
+            req.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+            // Await RPC; if it fails we still preserve raw scans already written
+            _ = try? await self.session.data(for: req)
         }
     }
     

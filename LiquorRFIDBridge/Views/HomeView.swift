@@ -7,8 +7,12 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var rfidService: RFIDService
+    @EnvironmentObject var networkMonitor: NetworkMonitor
+    @EnvironmentObject var queueService: QueueService
+    @EnvironmentObject var locationService: LocationService
     @State private var selectedSessionType: ScanSession.SessionType = .inventory
     @State private var showingSettings = false
+    @State private var selectedLocationId: String? = AppPreferences.shared.defaultLocationId
     
     var body: some View {
         NavigationStack {
@@ -64,6 +68,131 @@ struct HomeView: View {
                                     .foregroundColor(.secondary)
                             }
                             .padding(.top, 4)
+                        }
+                    }
+                    .padding()
+                    .background(Color(uiColor: .systemGray6))
+                    .cornerRadius(12)
+                    
+                    // MARK: - Queue Telemetry (minimal)
+                    if !networkMonitor.isConnected || queueService.queueDepth > 0 {
+                        HStack(spacing: 8) {
+                            Image(systemName: "externaldrive.badge.timemachine")
+                                .foregroundColor(.secondary)
+                            Text("\(queueService.queueDepth) queued")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            
+                            if let lastFlush = queueService.lastFlushAt {
+                                Text("· Last sync \(timeAgo(lastFlush))")
+                                    .font(.caption)
+                                    .foregroundColor(syncColor)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        if queueService.permanentFailureCount > 0 {
+                            Text("⚠️ \(queueService.permanentFailureCount) scans failed permanently")
+                                .font(.caption2)
+                                .foregroundColor(.red)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+                    
+                    // MARK: - Location Picker
+                    VStack(alignment: .leading, spacing: 12) {
+                        HStack {
+                            Text("Location")
+                                .font(.headline)
+                            Spacer()
+                            if let fetchedAt = locationService.lastFetchedAt {
+                                Text("Updated \(timeAgo(fetchedAt))")
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                            }
+                            if locationService.isLoading {
+                                ProgressView().controlSize(.small)
+                            } else {
+                                Button {
+                                    Task { await locationService.refresh() }
+                                } label: {
+                                    Label("Refresh", systemImage: "arrow.clockwise")
+                                        .labelStyle(.iconOnly)
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityLabel("Refresh Locations")
+                            }
+                        }
+                        
+                        // Warn if saved default is missing/inactive
+                        if let savedId = AppPreferences.shared.defaultLocationId,
+                           !locationService.activeLocations.contains(where: { $0.id == savedId }) {
+                            VStack(alignment: .leading, spacing: 6) {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                        .foregroundColor(.orange)
+                                    Text("Saved default location is unavailable. Please reselect.")
+                                        .font(.caption)
+                                        .foregroundColor(.orange)
+                                }
+                                Button {
+                                    AppPreferences.shared.defaultLocationId = nil
+                                    selectedLocationId = nil
+                                } label: {
+                                    Text("Clear default")
+                                }
+                                .font(.caption)
+                            }
+                            .padding(8)
+                            .background(Color.orange.opacity(0.1))
+                            .cornerRadius(8)
+                        }
+                        
+                        if !locationService.activeLocations.isEmpty {
+                            Picker("Select Location", selection: Binding(
+                                get: { selectedLocationId ?? "" },
+                                set: { newVal in
+                                    selectedLocationId = newVal.isEmpty ? nil : newVal
+                                    AppPreferences.shared.defaultLocationId = selectedLocationId
+                                }
+                            )) {
+                                Text("None").tag("")
+                                ForEach(locationService.activeLocations, id: \.id) { loc in
+                                    Text(loc.displayName).tag(loc.id)
+                                }
+                            }
+                            .pickerStyle(.menu)
+                        } else if let err = locationService.errorMessage {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(err)
+                                    .font(.caption)
+                                    .foregroundColor(.red)
+                                Button {
+                                    Task { await locationService.refresh() }
+                                } label: {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "arrow.clockwise")
+                                        Text("Retry")
+                                    }
+                                }
+                                .font(.caption)
+                            }
+                        } else {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("No locations available")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                Text("Check connectivity, then tap Refresh.")
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    }
+                    .onAppear {
+                        // Initialize selection from preferences if it still exists
+                        if let pref = AppPreferences.shared.defaultLocationId,
+                           locationService.activeLocations.contains(where: { $0.id == pref }) {
+                            selectedLocationId = pref
                         }
                     }
                     .padding()
@@ -186,7 +315,7 @@ struct HomeView: View {
                                     Task {
                                         await rfidService.startSession(
                                             type: selectedSessionType,
-                                            locationId: nil
+                                            locationId: selectedLocationId
                                         )
                                     }
                                 }
@@ -202,13 +331,21 @@ struct HomeView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                             }
+                            .disabled(rfidService.currentSession == nil && (selectedLocationId == nil || selectedLocationId?.isEmpty == true))
+                            
+                            if rfidService.currentSession == nil && (selectedLocationId == nil || selectedLocationId?.isEmpty == true) {
+                                Text("Select a location to start a session.")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
                         }
                     }
                     
                     // MARK: - Session Stats (show when active)
                     if let session = rfidService.currentSession {
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("Active Session")
+                            let locName = locationService.getLocation(id: session.locationId ?? "")?.displayName
+                            Text(locName != nil ? "Active Session • \(locName!)" : "Active Session")
                                 .font(.headline)
                             
                             HStack {
@@ -278,6 +415,12 @@ struct HomeView: View {
             .sheet(isPresented: $showingSettings) {
                 SettingsView()
             }
+            // Refresh locations automatically when network comes back
+            .onChange(of: networkMonitor.isConnected) { isOnline in
+                if isOnline {
+                    Task { await locationService.refresh() }
+                }
+            }
         }
     }
     
@@ -324,6 +467,25 @@ struct HomeView: View {
         default:
             return .red
         }
+    }
+    
+    private var syncColor: Color {
+        if queueService.lastFlushFailed > 0 {
+            return .red
+        } else if queueService.lastFlushSucceeded > 0 {
+            return .green
+        } else {
+            return .secondary
+        }
+    }
+    
+    private func timeAgo(_ date: Date) -> String {
+        let seconds = Int(Date().timeIntervalSince(date))
+        if seconds < 60 { return "\(seconds)s ago" }
+        let minutes = seconds / 60
+        if minutes < 60 { return "\(minutes)m ago" }
+        let hours = minutes / 60
+        return "\(hours)h ago"
     }
 }
 
