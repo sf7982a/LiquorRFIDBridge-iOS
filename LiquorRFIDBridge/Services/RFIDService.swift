@@ -156,6 +156,13 @@ class RFIDService: NSObject, ObservableObject {
     // MARK: - Scanning
     func startSession(type: ScanSession.SessionType, locationId: String?) async {
         guard connectionState == .ready else { return }
+        // Require a location to be selected before starting
+        guard locationId != nil else {
+            DispatchQueue.main.async {
+                self.errorMessage = "Please select a location before starting a session."
+            }
+            return
+        }
         if isStartingSessionOp || currentSession != nil { return }
         isStartingSessionOp = true
         defer { isStartingSessionOp = false }
@@ -245,6 +252,9 @@ class RFIDService: NSObject, ObservableObject {
         if let minRSSI = AppPreferences.shared.minAcceptedRSSI, rssi < minRSSI {
             return
         }
+        
+        // Prevent pre-session ingestion: ignore reads until a session is active
+        guard currentSession != nil else { return }
         
         // Prune stale entries to prevent unbounded growth
         let now = Date()

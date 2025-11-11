@@ -53,11 +53,29 @@ struct AppConfig {
     /// Maximum number of tags to queue when offline
     static let maxQueueSize: Int = 1000
     
-    /// Delay (in seconds) between retry attempts
-    static let retryDelay: TimeInterval = 5.0
+    /// Enable/disable uploads (kill switch)
+    static let uploadEnabled: Bool = true
+    
+    /// Maximum batch size per upload (must be <= 100 due to Edge Function limits)
+    static let queueBatchSize: Int = 100
+    
+    /// Interval (seconds) for periodic flush attempts while online
+    static let flushIntervalSeconds: TimeInterval = 20.0
+    
+    /// Base backoff seconds (exponential with jitter)
+    static let backoffBaseSeconds: TimeInterval = 2.0
+    
+    /// Maximum backoff seconds
+    static let backoffMaxSeconds: TimeInterval = 60.0
+    
+    /// Jitter ratio (0.2 = ±20%)
+    static let backoffJitterRatio: Double = 0.2
     
     /// Maximum number of retry attempts for failed uploads
     static let maxRetryAttempts: Int = 3
+    
+    /// Maximum number of upload attempts before giving up on an item
+    static let maxUploadAttempts: Int = 8
     
     // MARK: - Session Configuration
     
@@ -80,6 +98,8 @@ struct AppConfig {
     static var fnCreateSession: String { "\(functionsBaseURL)/create_session" }
     static var fnBatchInsertScans: String { "\(functionsBaseURL)/batch_insert_scans" }
     static var fnCompleteSession: String { "\(functionsBaseURL)/complete_session" }
+    static var fnUpsertBottleOnScan: String { "\(functionsBaseURL)/upsert_bottle_on_scan" }
+    static var fnScanUpsert: String { "\(functionsBaseURL)/scan-upsert" }
 
     /// Full REST endpoint for locations table
     static var locationsEndpoint: String {

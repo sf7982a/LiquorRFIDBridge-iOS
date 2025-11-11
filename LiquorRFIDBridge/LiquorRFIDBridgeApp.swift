@@ -14,14 +14,16 @@ struct LiquorRFIDBridgeApp: App {
     // Shared singletons — created once and injected
     @StateObject private var rfidService = RFIDService.shared
     @StateObject private var supabaseService = SupabaseService.shared
-    @StateObject private var networkMonitor = NetworkMonitor()
+    @StateObject private var networkMonitor: NetworkMonitor
+    @StateObject private var queueService: QueueService
+    @StateObject private var locationService = LocationService.shared
     
     init() {
-        // Create ONE shared NetworkMonitor
+        // Create ONE shared NetworkMonitor and QueueService
         let sharedNetworkMonitor = NetworkMonitor()
-        
-        // Create queue service with shared monitor
-        let queueService = QueueService(networkMonitor: sharedNetworkMonitor)
+        _networkMonitor = StateObject(wrappedValue: sharedNetworkMonitor)
+        let createdQueueService = QueueService(networkMonitor: sharedNetworkMonitor)
+        _queueService = StateObject(wrappedValue: createdQueueService)
         
         // Configure Supabase with network monitor
         SupabaseService.shared.configure(networkMonitor: sharedNetworkMonitor)
@@ -29,7 +31,7 @@ struct LiquorRFIDBridgeApp: App {
         // Inject dependencies into RFIDService
         RFIDService.shared.configure(
             supabase: SupabaseService.shared,
-            queue: queueService,
+            queue: createdQueueService,
             network: sharedNetworkMonitor
         )
         
@@ -42,11 +44,16 @@ struct LiquorRFIDBridgeApp: App {
                 .environmentObject(rfidService)
                 .environmentObject(supabaseService)
                 .environmentObject(networkMonitor)
+                .environmentObject(queueService)
+                .environmentObject(locationService)
                 .onAppear {
                     checkPermissions()
                     logConnectedAccessories()
                     // Optional: Auto-start connection on launch
                     // rfidService.connectToReader()
+                    Task {
+                        await locationService.fetchLocations()
+                    }
                 }
         }
     }

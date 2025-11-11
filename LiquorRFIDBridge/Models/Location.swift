@@ -8,7 +8,7 @@
 
   import Foundation
 
-  /// Represents a physical location (bar, warehouse, etc.) from Supabase
+    /// Represents a physical location (bar, warehouse, etc.) from Supabase
   struct Location: Identifiable, Codable, Equatable, Hashable {
 
       // MARK: - Properties
@@ -17,7 +17,7 @@
       let id: String
 
       /// Organization UUID this location belongs to
-      let organizationId: String
+        let organizationId: String?
 
       /// Location name (e.g., "Main Bar", "Back Warehouse")
       let name: String
@@ -32,22 +32,22 @@
       let isActive: Bool
 
       /// Additional location settings from JSONB field
-      let settings: [String: String]
+        let settings: [String: String]?
 
       /// When location was created
-      let createdAt: Date
+        let createdAt: Date?
 
       // MARK: - Initialization
 
       init(
           id: String,
-          organizationId: String,
+            organizationId: String? = nil,
           name: String,
           code: String? = nil,
           description: String? = nil,
           isActive: Bool = true,
-          settings: [String: String] = [:],
-          createdAt: Date = Date()
+            settings: [String: String]? = nil,
+            createdAt: Date? = nil
       ) {
           self.id = id
           self.organizationId = organizationId
