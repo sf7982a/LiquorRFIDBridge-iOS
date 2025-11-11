@@ -282,3 +282,49 @@ Key settings in `Config.swift`:
 - **iOS App** — Open an issue in this repository
 - **Web App** — See main 8Ball web repo
 - **Zebra Hardware** — Contact Zebra support
+
+## What's new (Phase 3 wrap‑up)
+
+- Edge Functions
+  - Added and deployed `scan-upsert` (alias of `upsert_bottle_on_scan`) with verify_jwt = true
+  - Behavior: updates known bottles (location/status/last_scanned), writes daily `inventory_counts`; logs unknown EPCs with counters
+- iOS App
+  - Enforces selecting a location before starting a session
+  - Ignores reads until a session is active
+  - Location list cached; default location persisted in preferences
+  - Offline queue/backoff tuning exposed in `AppConfig`
+- Backend
+  - Migration adds counters/timestamps to `public.unknown_epcs` (seen_count, first_seen_at, last_seen_at, last_location_id)
+  - Confirmed counts written only for known bottles; unknown EPCs are triaged via `unknown_epcs`
+
+### Function tests (verify_jwt = true)
+
+If your Edge Functions have Verify JWT enabled (recommended for production), include the anon key:
+
+```bash
+export SUPABASE_URL='https://<your-project>.supabase.co'
+export SUPABASE_ANON_KEY='<your-anon-key>'
+export ORG_ID='...' LOC_ID='...' SESSION_ID='...'
+
+curl -s -X POST "$SUPABASE_URL/functions/v1/scan-upsert" \
+  -H "Content-Type: application/json" \
+  -H "apikey: $SUPABASE_ANON_KEY" \
+  -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+  -d "{\"organization_id\":\"$ORG_ID\",\"location_id\":\"$LOC_ID\",\"session_id\":\"$SESSION_ID\",\"session_type\":\"inventory\",\"tags\":[{\"rfid_tag\":\"E280...\",\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",\"rssi\":-45}]}"
+```
+
+Notes:
+- Counts are created only for EPCs that exist in `public.bottles` for the same `organization_id`
+- Unknown tags are upserted into `public.unknown_epcs` and will not produce counts until resolved
+
+## Next Phase (high-level)
+
+- Bottle/Product modeling
+  - Web: unknown EPC reconciliation UI, resolve to product/bottle with required fields (brand, type, size, tier, price)
+  - DB: finalize NOT NULLs/defaults for `bottles` and related reference data
+- Reporting
+  - Views for daily counts by location and by product
+  - Optional: materialized views for top-line dashboards
+- Security/Policies
+  - Membership-based RLS for direct REST (if/when needed)
+  - Keep mobile read/writes via Edge Functions with verify_jwt enabled

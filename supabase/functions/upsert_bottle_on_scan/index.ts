@@ -109,23 +109,61 @@ Deno.serve(async (req) => {
       if (!updErr) updatedCount++
     }
 
-    // Unknown EPCs in a single upsert (no seen_count override on conflict)
+    // Unknown EPC handling with counters
     const nowIso = new Date().toISOString()
-    const unknownRows = deduped
-      .filter((t: any) => !tagToBottleId.get(t.rfid_tag))
-      .map((t: any) => ({
-        organization_id,
-        rfid_tag: t.rfid_tag,
-        location_id,
-        last_seen_at: t.timestamp || nowIso
-      }))
-    if (unknownRows.length > 0) {
-      const { error: upsertUnknownErr } = await supabase
+    const unknownDeduped: any[] = deduped.filter((t: any) => !tagToBottleId.get(t.rfid_tag))
+    if (unknownDeduped.length > 0) {
+      const unknownTags = unknownDeduped.map((t: any) => t.rfid_tag)
+      // Lookup existing unknowns to increment counters
+      const { data: existingUnknowns, error: existingUnknownErr } = await supabase
         .from('unknown_epcs')
-        .upsert(unknownRows, { onConflict: 'organization_id,rfid_tag' })
-        .select('id') // optional
-      if (upsertUnknownErr) {
-        console.error('unknown_epcs upsert error:', upsertUnknownErr)
+        .select('rfid_tag, seen_count')
+        .eq('organization_id', organization_id)
+        .in('rfid_tag', unknownTags)
+      if (existingUnknownErr) {
+        console.error('unknown_epcs lookup error:', existingUnknownErr)
+      }
+      const existingSet = new Set<string>((existingUnknowns || []).map((r: any) => r.rfid_tag))
+      const tagToSeenCount = new Map<string, number>()
+      for (const r of (existingUnknowns || [])) tagToSeenCount.set(r.rfid_tag, r.seen_count ?? 0)
+
+      // New rows (first time seen)
+      const newRows = unknownDeduped
+        .filter((t: any) => !existingSet.has(t.rfid_tag))
+        .map((t: any) => ({
+          organization_id,
+          rfid_tag: t.rfid_tag,
+          location_id,
+          last_seen_at: t.timestamp || nowIso,
+          last_location_id: location_id,
+          // seen_count defaults to 1 via DB default; set explicitly for clarity
+          seen_count: 1
+        }))
+      if (newRows.length > 0) {
+        const { error: insertUnknownErr } = await supabase
+          .from('unknown_epcs')
+          .insert(newRows)
+        if (insertUnknownErr) {
+          console.error('unknown_epcs insert error:', insertUnknownErr)
+        }
+      }
+
+      // Existing rows: increment per tag
+      for (const t of unknownDeduped) {
+        if (!existingSet.has(t.rfid_tag)) continue
+        const current = tagToSeenCount.get(t.rfid_tag) ?? 0
+        const { error: updUnknownErr } = await supabase
+          .from('unknown_epcs')
+          .update({
+            seen_count: current + 1,
+            last_seen_at: t.timestamp || nowIso,
+            last_location_id: location_id
+          })
+          .eq('organization_id', organization_id)
+          .eq('rfid_tag', t.rfid_tag)
+        if (updUnknownErr) {
+          console.error('unknown_epcs update error:', updUnknownErr)
+        }
       }
     }
 
