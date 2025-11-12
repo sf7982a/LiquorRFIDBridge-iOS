@@ -62,7 +62,7 @@ jobs:
               echo "Non-2xx status for $path: $code"
               exit 1
             fi
-            greater=$(python3 - <<'EOF'
+            greater=$(python3 - <<EOF
           from decimal import Decimal
           print(Decimal("$ttfb") > Decimal("$LIMIT"))
           EOF
