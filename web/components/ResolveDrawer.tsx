@@ -50,6 +50,7 @@ export function ResolveDrawer({ open, row, onClose, onResolved }: Props) {
   }, [onClose]);
 
   async function onSubmit(formData: FormData) {
+    if (!row) return;
     setSubmitting(true);
     try {
       const parsed = schema.parse({
@@ -59,13 +60,13 @@ export function ResolveDrawer({ open, row, onClose, onResolved }: Props) {
         size: formData.get("size"),
         price: formData.get("price"),
         status: formData.get("status") ?? "active",
-        location_id: formData.get("location_id") || row.last_location_id || undefined,
+        location_id: formData.get("location_id") || row?.last_location_id || undefined,
         create_initial_count: formData.get("create_initial_count") === "on"
       } as Record<string, unknown>);
 
       const { data, error } = await (supabase as any).rpc("resolve_unknown_epc", {
         p_organization_id: null, // RLS should scope; optionally pass if available from session/profile
-        p_rfid_tag: row.rfid_tag,
+        p_rfid_tag: row?.rfid_tag,
         p_location_id: parsed.location_id ?? null,
         p_brand: parsed.brand,
         p_product: parsed.product ?? null,
