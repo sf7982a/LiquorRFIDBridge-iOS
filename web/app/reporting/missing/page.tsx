@@ -14,9 +14,9 @@ export default function MissingTodayPage() {
   async function fetchRows() {
     setIsLoading(true);
     try {
-      const query = supabase.from("inventory_missing_today").select("*").order("brand", { ascending: true });
+      const query = (supabase as any).from("inventory_missing_today").select("*").order("brand", { ascending: true });
       if (locationId) query.eq("location_id", locationId);
-      const { data, error } = await query.returns<MissingTodayRow[]>();
+      const { data, error } = await query;
       if (error) throw error;
       setRows(data);
     } finally {

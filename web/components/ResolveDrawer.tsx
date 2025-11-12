@@ -63,7 +63,7 @@ export function ResolveDrawer({ open, row, onClose, onResolved }: Props) {
         create_initial_count: formData.get("create_initial_count") === "on"
       } as Record<string, unknown>);
 
-      const { data, error } = await supabase.rpc("resolve_unknown_epc", {
+      const { data, error } = await (supabase as any).rpc("resolve_unknown_epc", {
         p_organization_id: null, // RLS should scope; optionally pass if available from session/profile
         p_rfid_tag: row.rfid_tag,
         p_location_id: parsed.location_id ?? null,

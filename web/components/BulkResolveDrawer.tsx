@@ -58,7 +58,7 @@ export function BulkResolveDrawer({ open, rows, onClose, onResolved }: Props) {
         const row = rows[i];
         const locationOverride = String(formData.get(`loc_${row.rfid_tag}`) || "").trim();
         const p_location_id = locationOverride || row.last_location_id || null;
-        const { error } = await supabase.rpc("resolve_unknown_epc", {
+        const { error } = await (supabase as any).rpc("resolve_unknown_epc", {
           p_organization_id: null,
           p_rfid_tag: row.rfid_tag,
           p_location_id,
