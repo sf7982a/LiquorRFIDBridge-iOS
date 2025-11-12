@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *" # Synthetic checks every 30 minutes
+
+jobs:
+  web-build:
+    name: Web - Lint & Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'http://localhost:54321' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'anon-key-placeholder' }}
+        run: npm run build
+
+  synthetic:
+    name: Synthetic Checks (TTFB and 200s)
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Check base URL provided
+        run: |
+          if [ -z "${{ secrets.SYNTHETIC_BASE_URL }}" ]; then
+            echo "SYNTHETIC_BASE_URL not set, skipping synthetic checks."
+            exit 0
+          fi
+      - name: Probe endpoints
+        env:
+          BASE: ${{ secrets.SYNTHETIC_BASE_URL }}
+          LIMIT: "0.30"
+        run: |
+          set -euo pipefail
+          check() {
+            local path="$1"
+            echo "Probing $BASE$path"
+            out=$(curl -sS -o /dev/null -w "%{http_code} %{time_starttransfer}" "$BASE$path")
+            code=$(echo "$out" | awk '{print $1}')
+            ttfb=$(echo "$out" | awk '{print $2}')
+            echo "Status: $code, TTFB: ${ttfb}s (limit ${LIMIT}s)"
+            if [ "$code" -lt 200 ] || [ "$code" -ge 300 ]; then
+              echo "Non-2xx status for $path: $code"
+              exit 1
+            fi
+            greater=$(python3 - <<EOF
+from decimal import Decimal
+print(Decimal("$ttfb") > Decimal("$LIMIT"))
+EOF
+)
+            if [ "$greater" = "True" ]; then
+              echo "TTFB over budget on $path: $ttfb > $LIMIT"
+              exit 1
+            fi
+          }
+          check "/"
+          check "/reconciliation"
+          check "/reporting/counts"
+
+
