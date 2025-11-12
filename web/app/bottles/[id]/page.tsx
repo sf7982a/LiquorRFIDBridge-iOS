@@ -79,7 +79,7 @@ export default function BottleDetailPage({ params }: Props) {
       tier: (form.get("tier") as string) || null
     };
     try {
-      const { error } = await supabase.from("bottles").update(payload as any).eq("id", bottle.id);
+      const { error } = await (supabase as any).from("bottles").update(payload).eq("id", bottle.id);
       if (error) throw error;
       toast({ title: "Saved", description: "Bottle updated", variant: "success" });
       await loadAll();
@@ -96,7 +96,7 @@ export default function BottleDetailPage({ params }: Props) {
     setMoving(true);
     try {
       const payload = { location_id: moveLocationId || null };
-      const { error } = await supabase.from("bottles").update(payload as any).eq("id", bottle.id);
+      const { error } = await (supabase as any).from("bottles").update(payload).eq("id", bottle.id);
       if (error) throw error;
       toast({ title: "Moved", description: "Location updated", variant: "success" });
       await loadAll();
