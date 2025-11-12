@@ -117,7 +117,7 @@ export default function BottleDetailPage({ params }: Props) {
     const to_location_id = String(form.get("to_location_id") || "") || null;
     const notes = String(form.get("notes") || "") || null;
     try {
-      const { error } = await supabase.from("inventory_movements").insert({
+      const { error } = await (supabase as any).from("inventory_movements").insert({
         bottle_id: bottle.id,
         movement_type,
         from_location_id,
