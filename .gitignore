@@ -2,6 +2,8 @@
 node_modules/
 **/node_modules/
 .npm/
+.npm-cache/
+**/.npm-cache/
 .pnpm-store/
 npm-debug.log*
 
@@ -16,3 +18,7 @@ dist/
 build/
 coverage/
 playwright-report/
+
+# Xcode
+xcuserdata/
+*.xcworkspace/xcuserdata/
