@@ -30,7 +30,7 @@ jobs:
             python3 - <<PY
           from decimal import Decimal as D
           import sys
-          print(D("$ttfb") <= D("$LIMIT")) or sys.exit(1)
+          sys.exit(0 if D("$ttfb") <= D("$LIMIT") else 1)
           PY
           }
           check "/"
