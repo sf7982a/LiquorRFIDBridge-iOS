@@ -27,11 +27,11 @@ jobs:
             ttfb=$(echo "$out" | awk '{print $2}')
             echo "$path -> $code, TTFB=${ttfb}s"
             [ "$code" -ge 200 ] && [ "$code" -lt 300 ] || { echo "Non-2xx $path"; exit 1; }
-            python3 - <<PY
-from decimal import Decimal as D
-import sys
-print(D("$ttfb") <= D("$LIMIT")) or sys.exit(1)
-PY
+            python3 - <<'PY'
+          from decimal import Decimal as D
+          import sys
+          print(D("$ttfb") <= D("$LIMIT")) or sys.exit(1)
+          PY
           }
           check "/"
           check "/auth/sign-in"
