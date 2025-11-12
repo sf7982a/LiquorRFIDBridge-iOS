@@ -1,0 +1,39 @@
+name: Synthetic Checks
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check BASE provided
+        run: |
+          if [ -z "${{ secrets.SYNTHETIC_BASE_URL }}" ]; then
+            echo "SYNTHETIC_BASE_URL not set, skipping."
+            exit 0
+          fi
+      - name: Probes
+        env:
+          BASE: ${{ secrets.SYNTHETIC_BASE_URL }}
+          LIMIT: "0.30"
+        run: |
+          set -euo pipefail
+          check() {
+            local path="$1"
+            out=$(curl -sS -o /dev/null -w "%{http_code} %{time_starttransfer}" "$BASE$path")
+            code=$(echo "$out" | awk '{print $1}')
+            ttfb=$(echo "$out" | awk '{print $2}')
+            echo "$path -> $code, TTFB=${ttfb}s"
+            [ "$code" -ge 200 ] && [ "$code" -lt 300 ] || { echo "Non-2xx $path"; exit 1; }
+            python3 - <<PY
+from decimal import Decimal as D
+import sys
+print(D("$ttfb") <= D("$LIMIT")) or sys.exit(1)
+PY
+          }
+          check "/"
+          check "/auth/sign-in"
+          check "/reconciliation"
+          check "/reporting/counts"
